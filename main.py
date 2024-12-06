@@ -24,6 +24,10 @@ transform = transforms.Compose([
 
 ])
 
+@app.route('/')
+def home():
+    return "Hello World"
+
 @app.route('/predict', methods=['POST'])
 def predict():
     if 'file' not in request.files:
