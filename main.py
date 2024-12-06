@@ -15,7 +15,7 @@ model.classifier[1] = torch.nn.Sequential(
 )
 model = model.to(device)
 
-model.load_state_dict(torch.load('entire_model.pth', map_location=device))
+model.load_state_dict(torch.load('entire_model.pth'))
 model.eval()
 
 transform = transforms.Compose([
