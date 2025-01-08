@@ -36,7 +36,8 @@ def predict():
     file = request.files['file']
 
     try:
-        img = Image.open(io.BytesIO(file.read()))
+        # Ensure the image is in RGB mode
+        img = Image.open(io.BytesIO(file.read())).convert('RGB')
         img_tensor = transform(img).unsqueeze(0).to(device)
     except Exception as e:
         return jsonify({'error': f'Error processing image: {str(e)}'}), 400
@@ -46,7 +47,7 @@ def predict():
         prediction = (output > 0.5).float().item()
 
     result = 'Recyclable' if prediction == 1 else 'Organic'
-    return jsonify({'prediction': result})
+    return result
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=5000)
